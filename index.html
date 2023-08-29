@@ -17,6 +17,7 @@
         <rect x="0" y="0" width="400" height="400" fill="transparent" stroke="black" />
         <circle id="crust-outer" cx="200" cy="200" r="150" fill="transparent" />
         <circle id="crust-inner" cx="200" cy="200" r="110" fill="transparent" />
+        <circle id="filling" cx="200" cy="200" r="140" fill="transparent" />
     </svg>
     <div id="options" class="options">
         <fieldset>
@@ -26,32 +27,59 @@
             <label><input type="radio" name="crust" value="graham">Graham Cracker</label><br>
             <label><input type="radio" name="crust" value="chocolate">Chocolate</label><br>
         </fieldset>
+        <fieldset>
+            <legend>Please choose a filling</legend>
+            <label><input type="radio" name="filling" value="none" checked>None</label><br>
+            <label><input type="radio" name="filling" value="keyLime">Key Lime</label><br>
+            <label><input type="radio" name="filling" value="pumpkin">Pumpkin</label><br>
+            <label><input type="radio" name="filling" value="lemon">Lemon</label><br>
+        </fieldset>
     </div>
     <script>
         const crustElements = document.querySelectorAll("[name=crust]");
         const outerCrust = document.getElementById('crust-outer');
         const innerCrust = document.getElementById('crust-inner');
+        const filling = document.getElementById('filling');
         document.getElementById('options').addEventListener('change', (e)=> {
-            if(e.target.name === 'crust') {
-                let colors = [];
-                switch(e.target.value) {
-                    case 'none':
-                        colors = ['transparent', 'transparent'];
-                        break;
-                    case 'pastry':
-                        colors = ['#DECCB8', '#F2DFC9'];
-                        break;
-                    case 'graham':
-                        colors = ['#BA870D', '#DEA010'];
-                        break;
-                    case 'chocolate':
-                        colors = ['#2E1802', '#422303'];
-                        break;
-                    default:
-                        return;
-                }
-                innerCrust.setAttribute('fill', colors[0]);
-                outerCrust.setAttribute('fill', colors[1]);
+            switch(e.target.name) {
+                case 'crust':
+                    let colors = [];
+                    switch(e.target.value) {
+                        case 'none':
+                            colors = ['transparent', 'transparent'];
+                            break;
+                        case 'pastry':
+                            colors = ['#DECCB8', '#F2DFC9'];
+                            break;
+                        case 'graham':
+                            colors = ['#BA870D', '#DEA010'];
+                            break;
+                        case 'chocolate':
+                            colors = ['#2E1802', '#422303'];
+                            break;
+                        default:
+                            return;
+                    }
+                    innerCrust.setAttribute('fill', colors[0]);
+                    outerCrust.setAttribute('fill', colors[1]);
+                    break;
+                case 'filling':
+                    switch(e.target.value) {
+                        case 'none':
+                            filling.setAttribute('fill', 'transparent');
+                            break;
+                        case 'keyLime':
+                            filling.setAttribute('fill', '#DFF5A2');
+                            break;
+                        case 'pumpkin':
+                            filling.setAttribute('fill', '#BD7502');
+                            break;
+                        case 'lemon':
+                            filling.setAttribute('fill', '#FFF4BD');
+                            break;
+                        default:
+                            return;
+                    }
             }
         });
     </script>
