@@ -40,12 +40,19 @@
             #meringue path:nth-of-type(6) {
                 transform: rotate(300deg);
             }
+            .animated {
+                transition: all 1s;
+            }
         </style>
         <rect x="0" y="0" width="400" height="400" fill="transparent" stroke="black" />
-        <circle id="crust-outer" cx="200" cy="200" r="150" fill="transparent" />
-        <circle id="crust-inner" cx="200" cy="200" r="110" fill="transparent" />
-        <circle id="filling" cx="200" cy="200" r="140" fill="transparent" />
-        <g id="meringue" style="display: none;">
+        <text x="200" y="30" text-anchor="middle" font-family="sans-serif" fill="#a593c2" font-size="25">
+            <tspan fill="#4dcfa8" font-weight="bold">Bethany's</tspan> Custom Pie Maker
+        </text>
+        <image x="320" y="320" width="50" height="50" href="./bethanylogo.png" />
+        <circle class="animated" id="crust-outer" cx="200" cy="200" r="150" fill="transparent" />
+        <circle class="animated" id="crust-inner" cx="200" cy="200" r="110" fill="transparent" />
+        <circle class="animated" id="filling" cx="200" cy="200" r="140" fill="transparent" />
+        <g class="animated" id="meringue" style="display: none;">
             <circle cx="200" cy="200" r="130" fill="white" stroke="#b3702d" />
             <path d="M200, 200 q 65, -65 0, -130" stroke="#b3702d" fill="transparent" />
             <path d="M200, 200 q 65, -65 0, -130" stroke="#b3702d" fill="transparent" />
@@ -75,6 +82,7 @@
             <label><input type="radio" name="topping" value="none" checked>None</label><br>
             <label><input type="radio" name="topping" value="meringue">Meringue</label><br>
         </fieldset>
+        <button id="animate">Explode!</button>
     </div>
     <script>
         const crustElements = document.querySelectorAll("[name=crust]");
@@ -136,6 +144,25 @@
                     }
             }
         });
+
+        const animateButton = document.getElementById('animate');
+        let isExploded = false;
+        animateButton.addEventListener('click', ()=> {
+            if(isExploded){
+                animateButton.innerHTML = 'Explode!';
+                outerCrust.style.transform = 'translate(0px, 0px) scale(1)';
+                innerCrust.style.transform = 'translate(0px, 0px) scale(1)';
+                filling.style.transform = 'translate(0px, 0px) scale(1)';
+                meringue.style.transform = 'translate(0px, 0px) scale(1)';
+            } else {
+                animateButton.innerHTML = 'Reassemble';
+                outerCrust.style.transform = 'translate(-20px, 20px) scale(0.6)';
+                innerCrust.style.transform = 'translate(-20px, 20px) scale(0.6)';
+                filling.style.transform = 'translate(180px, 20px) scale(0.6)';
+                meringue.style.transform = 'translate(80px, 180px) scale(0.6)';
+            }
+            isExploded = !isExploded;
+        })
     </script>
 </body>
 </html>
