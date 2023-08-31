@@ -131,12 +131,43 @@
                     }
             }
 
-            const text = "Bethany's Custom Pie Maker";
-            ctx.font = '25px sans-serif';
-            const dims = ctx.measureText(text);
-            ctx.fillStyle = '#A593C2';
-            let textStart = 200 - dims.width/2; //center of square - 1/2 the size of the text
-            ctx.fillText(text, textStart, 30);
+            // const text = "Bethany's Custom Pie Maker";
+            // ctx.font = '25px sans-serif';
+            // const dims = ctx.measureText(text);
+            // ctx.fillStyle = '#A593C2';
+            // let textStart = 200 - dims.width/2; //center of square - 1/2 the size of the text
+            // ctx.fillText(text, textStart, 30);
+
+            //since we want bold text, need to do it differently
+            const spans = [
+                {
+                    font: 'bold 25px sans-serif',
+                    text: "Bethany's",
+                    fillStyle: '#4DCFA8'
+                },
+                {
+                    font: '25px sans-serif',
+                    text: ' Custom Pie Maker',
+                    fillStyle: '#A593C2'
+                }
+            ];
+
+            //get total width of text
+            let totalWidth = 0;
+            spans.forEach(span => {
+                ctx.font = span.font;
+                span.dims = ctx.measureText(span.text);
+                totalWidth += span.dims.width;
+            });
+
+            //render
+            let currentX = 200 - totalWidth/2; //initialize to farthest left
+            spans.forEach(span => {
+                ctx.fillStyle = span.fillStyle;
+                ctx.font = span.font;
+                ctx.fillText(span.text, currentX, 30);
+                currentX += span.dims.width;
+            });
         }
     </script>
 </body>
