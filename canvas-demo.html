@@ -29,6 +29,11 @@
             <label><input type="radio" name="filling" value="pumpkin">Pumpkin</label><br>
             <label><input type="radio" name="filling" value="lemon">Lemon</label><br>
         </fieldset>
+        <fieldset>
+            <legend>Please choose a topping</legend>
+            <label><input type="radio" name="topping" value="none" checked>None</label><br>
+            <label><input type="radio" name="topping" value="meringue">Meringue</label><br>
+        </fieldset>
     </div>
     <script>
         document.getElementById('options').addEventListener('change', (e) => {
@@ -41,6 +46,11 @@
             document.querySelectorAll('[name=filling]').forEach(elem => {
                 if(elem.checked) {
                     options.filling = elem.value;
+                }
+            });
+            document.querySelectorAll('[name=topping]').forEach(elem => {
+                if(elem.checked) {
+                    options.topping = elem.value;
                 }
             });
 
@@ -97,6 +107,29 @@
             ctx.beginPath();
             ctx.ellipse(200, 200, 140, 140, 0, 0, 2*Math.PI); //this makes a circle
             ctx.fill();
+
+            switch(options.topping) {
+                case 'meringue':
+                    ctx.fillStyle = 'white';
+                    ctx.strokeStyle = '#B3702D';
+                    ctx.beginPath();
+                    ctx.ellipse(200, 200, 130, 130, 0, 0, 2*Math.PI); //this makes a circle
+                    ctx.fill();
+                    ctx.stroke();
+
+                    //Add lines
+                    for(let i=0; i<6; i++) {
+                        ctx.save();
+                        ctx.translate(200, 200);
+                        let degrees = i/6 * 2 * Math.PI;
+                        ctx.rotate(degrees);
+                        ctx.beginPath();
+                        ctx.moveTo(0, 0);
+                        ctx.quadraticCurveTo(65, -65, 0, -130);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+            }
         }
     </script>
 </body>
