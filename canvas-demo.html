@@ -22,6 +22,13 @@
             <label><input type="radio" name="crust" value="graham">Graham Cracker</label><br>
             <label><input type="radio" name="crust" value="chocolate">Chocolate</label><br>
         </fieldset>
+        <fieldset>
+            <legend>Please choose a filling</legend>
+            <label><input type="radio" name="filling" value="none" checked>None</label><br>
+            <label><input type="radio" name="filling" value="keyLime">Key Lime</label><br>
+            <label><input type="radio" name="filling" value="pumpkin">Pumpkin</label><br>
+            <label><input type="radio" name="filling" value="lemon">Lemon</label><br>
+        </fieldset>
     </div>
     <script>
         document.getElementById('options').addEventListener('change', (e) => {
@@ -29,6 +36,11 @@
             document.querySelectorAll('[name=crust]').forEach(elem => {
                 if(elem.checked) {
                     options.crust = elem.value;
+                }
+            });
+            document.querySelectorAll('[name=filling]').forEach(elem => {
+                if(elem.checked) {
+                    options.filling = elem.value;
                 }
             });
 
@@ -67,6 +79,24 @@
                 ctx.ellipse(200, 200, 110, 110, 0, 0, 2*Math.PI); //this makes a circle
                 ctx.fill();
             }
+
+            switch(options.filling) {
+                case 'keyLime':
+                    ctx.fillStyle = '#DFF5A2';
+                    break;
+                case 'pumpkin':
+                    ctx.fillStyle = '#BD7502';
+                    break;
+                case 'lemon':
+                    ctx.fillStyle = '#FFF48D';
+                    break;
+                default:
+                    ctx.fillStyle = 'transparent';
+            }
+
+            ctx.beginPath();
+            ctx.ellipse(200, 200, 140, 140, 0, 0, 2*Math.PI); //this makes a circle
+            ctx.fill();
         }
     </script>
 </body>
